@@ -1,11 +1,33 @@
 <!--index.wxml-->
 <view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 我是你妈妈 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
+  <view class="userinfo_contain">
+    <view class="userinfo_contain_inner">
+      <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> loading User info </button>
+      <block wx:else>
+        <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+        <view class="user_name">
+          <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+        </view>
+      </block>
+    </view>
+  </view>
+  <view class="container_input">
+    <view class="weui-cell">
+      <view class="weui-cell__hd">
+        <label class="weui-label">微信名称</label>
+      </view>
+      <view class="weui-cell__hd">
+        <input class="weui-input border" type="text" value='hi'/>
+      </view>
+    </view>
+    <view class="weui-cell">
+      <view class="weui-cell__hd">
+        <label class="weui-label">出发时间</label>
+      </view>
+      <view class="weui-cell__hd">
+        <picker mode="date" start="2015-09-01" end="2017-09-01"></picker>
+      </view>
+    </view>
   </view>
   <view class="usermotto">
     <text class="user-motto weui-btn weui-btn_primary">{{motto}}</text>

@@ -5,9 +5,48 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 200rpx 0;
+  padding: 5rpx 0;
   box-sizing: border-box;
 } 
+
+.userinfo_contain {
+  display: flex;
+  flex-direction: row;
+  border: solid;
+  border-color: grey;
+  border-radius: 25px;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.userinfo_contain_inner {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: 100%;
+  border: solid;
+  border-color: grey;
+  border-radius: 25px;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 12rpx;
+  border-radius: 50%;
+}
+
+.user_name {
+  display: inline-block;
+  margin-left: 3%; 
+}
+
+.userinfo-nickname {
+  color: #aaa;
+  
+}
 
 /*!
  * WeUI v1.1.2 (https://github.com/weui/weui)
