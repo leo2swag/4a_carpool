@@ -11,11 +11,19 @@ App({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
         if(res.code){
-          console.log(res.code);
           wx.request({
-            url: 'https://api.weixin.qq.com/sns/jscode2session?appid=APPID&secret=SECRET&js_code=JSCODE&grant_type=authorization_code',
+            url: 'https://d778884b.ngrok.io/login',
             data:{
               code: res.code
+            },
+            method: "POST",
+            header: {
+              'content-type': 'application/json'
+            },
+            success : function(res){
+              if(res.statusCode == 200){
+                // do something
+              }
             }
           }) // Will need app secret
           // will change url to own backend for getting user login info
