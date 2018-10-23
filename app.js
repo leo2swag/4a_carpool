@@ -6,13 +6,16 @@ App({
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
 
+    var session = wx.getStorageSync('session') || "";
+
+
     // 登录
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
         if(res.code){
           wx.request({
-            url: 'https://d778884b.ngrok.io/login',
+            url: 'https://localhost:3000/login',
             data:{
               code: res.code
             },
@@ -23,6 +26,14 @@ App({
             success : function(res){
               if(res.statusCode == 200){
                 // do something
+                console.log("Success");
+                console.log(res.data);
+                if(session == ""){
+                  wx.setStorageSync('session', res.data);
+                }
+              }
+              else{
+                console.log("Fail");
               }
             }
           }) // Will need app secret
