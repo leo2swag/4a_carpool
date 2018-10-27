@@ -41,6 +41,7 @@ App({
     })
   },
   login: function(){
+    var self = this;
     wx.login({
       success: function(loginRes){
         if (loginRes.code){
@@ -57,23 +58,23 @@ App({
               if (res.statusCode == 200) {
                 // do something
                 wx.setStorageSync('session_id', res.data);
-                this.loginStatus.session_id = res.data;
-                this.loginStatus.logined = true;
+                self.loginStatus.session_id = res.data;
+                self.loginStatus.logined = true;
               }
               else {
-                this.loginStatus.logined = false;
+                self.loginStatus.logined = false;
               }
             },
             fail: function(res){
-              this.loginStatus.logined = false;
+              self.loginStatus.logined = false;
             }
           })
         } else{
-          this.loginStatus.logined = false;
+          self.loginStatus.logined = false;
         }
       },
       fail: function(err){
-        this.loginStatus.logined = false;
+        self.loginStatus.logined = false;
       }
     })
   },
