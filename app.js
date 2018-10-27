@@ -2,48 +2,23 @@
 App({
   onLaunch: function () {
     // 展示本地存储能力
+    var self = this;
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
-
-    var session = wx.getStorageSync('session') || "";
-
-
-    // 登录
-    wx.login({
-      success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-        if(res.code){
-          wx.request({
-            url: 'https://localhost:3000/login',
-            data:{
-              code: res.code
-            },
-            method: "POST",
-            header: {
-              'content-type': 'application/json'
-            },
-            success : function(res){
-              if(res.statusCode == 200){
-                // do something
-                console.log("Success");
-                console.log(res.data);
-                if(session == ""){
-                  wx.setStorageSync('session', res.data);
-                }
-              }
-              else{
-                console.log("Fail");
-              }
-            }
-          }) // Will need app secret
-          // will change url to own backend for getting user login info
-        }
-        else{
-          console.log(res.errMsg);
-        }
+    
+    // check session
+    wx.checkSession({
+      success: function(){
+        self.loginStatus.logined = true;
+        self.getSession();
+      },
+      fail: function(){
+        self.login();
       }
     })
+
+    // 登录
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -64,6 +39,50 @@ App({
         }
       }
     })
+  },
+  login: function(){
+    wx.login({
+      success: function(loginRes){
+        if (loginRes.code){
+          wx.request({
+            url: 'https://localhost:3000/login',
+            data: {
+              code: loginRes.code
+            },
+            method: "POST",
+            header: {
+              'content-type': 'application/json'
+            },
+            success: function (res) {
+              if (res.statusCode == 200) {
+                // do something
+                wx.setStorageSync('session_id', res.data);
+                this.loginStatus.session_id = res.data;
+                this.loginStatus.logined = true;
+              }
+              else {
+                this.loginStatus.logined = false;
+              }
+            },
+            fail: function(res){
+              this.loginStatus.logined = false;
+            }
+          })
+        } else{
+          this.loginStatus.logined = false;
+        }
+      },
+      fail: function(err){
+        this.loginStatus.logined = false;
+      }
+    })
+  },
+  loginStatus: {
+    logined: false,
+    session_id: null
+  },
+  getSession: function () {
+    this.loginStatus.session_id = wx.getStorageSync('session_id');
   },
   globalData: {
     userInfo: null
