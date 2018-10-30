@@ -62,18 +62,22 @@ App({
                 self.loginStatus.logined = true;
               }
               else {
+                console.log("Status: " + res.statusCode + " Msg: " + res.data + "\n");
                 self.loginStatus.logined = false;
               }
             },
-            fail: function(res){
+            fail: function(err){
+              console.log("Error: " + err.errMsg + "\n");
               self.loginStatus.logined = false;
             }
           })
         } else{
+          console.log("Status: " + res.statusCode + " Msg: " + res.data + "\n");
           self.loginStatus.logined = false;
         }
       },
       fail: function(err){
+        console.log("Login fail: " + err.errMsg + "\n");
         self.loginStatus.logined = false;
       }
     })
