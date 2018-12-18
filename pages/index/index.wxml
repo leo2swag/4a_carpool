@@ -4,9 +4,11 @@
     <view class="userinfo_contain_inner">
       <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> loading User info </button>
       <block wx:else>
+         <view class="left_image">
         <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+        </view>
         <view class="user_name">
-          <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+          <text class="blackfont">{{userInfo.nickName}}</text>
         </view>
       </block>
     </view>
@@ -14,22 +16,90 @@
   <view class="container_input">
     <view class="weui-cell">
       <view class="weui-cell__hd">
-        <label class="weui-label">微信名称</label>
+        <label class="weui-label">微信名称:</label>
       </view>
-      <view class="weui-cell__hd">
-        <input class="weui-input border" type="text" value='hi'/>
+      <view class="weui-cell__hd contentright">
+        <input class='greyfont' type='text' value='{{userInfo.nickName}}' disabled='true'/> 
       </view>
     </view>
     <view class="weui-cell">
       <view class="weui-cell__hd">
-        <label class="weui-label">出发时间</label>
+        <label class="weui-label">联系电话:</label>
       </view>
-      <view class="weui-cell__hd">
-        <picker mode="date" start="2015-09-01" end="2017-09-01"></picker>
+      <view class="weui-cell__hd contentright">
+        <input class='greyfont' type='Number' value='+1 {{user_number}}' disabled='true'/> 
       </view>
     </view>
+    <view class="weui-cell">
+      <view class="weui-cell__hd">
+        <label class="weui-label">出发日期:</label>
+      </view>
+      <view class="weui-cell__hd contentright">
+      <picker mode="date" value="{{date}}" start="2018-09-01" end="2035-09-01"      bindchange="bindDateChange">
+      <view class="picker">
+        {{date}}
+      </view>
+      </picker>
+      </view>
+    </view>
+    <view class="weui-cell">
+      <view class="weui-cell__hd">
+        <label class="weui-label">出发时间:</label>
+      </view>
+      <view class="weui-cell__hd contentright">
+       <picker mode="time" value="{{time}}" start="09:01" end="21:01" bindchange="bindTimeChange">
+    <view class="picker">
+      {{time_sec}} {{time}} 
+    </view>
+  </picker>
+      </view>
+    </view>
+    <view class="weui-cell">
+      <view class="weui-cell__hd">
+        <label class="weui-label">搭客价格:</label>
+      </view>
+      <view class="weui-cell__hd contentright">
+        <picker bindchange="bindPriceChange" value="{{index}}" range="{{array}}">
+          <view class="picker">
+            {{array[index]}}
+          </view>
+        </picker>
+      </view>
+    </view>
+    <view class="weui-cell">
+      <view class="weui-cell__hd">
+        <label class="weui-label">出发地址:</label>
+      </view>
+      <view class="weui-cell__hd contentright">
+        <text bindtap="bindchooselocTapdep" class="depart_map">{{dep_loc_greeting}}</text>
+        <text bindtap="bindchooselocTapdep">{{dep_loc_name}}</text>
+      </view>
+    </view>
+     <view class="weui-cell">
+      <view class="weui-cell__hd">
+        <label class="weui-label">抵达地址:</label>
+      </view>
+      <view class="weui-cell__hd contentright">
+        <text bindtap="bindchooselocTaparr" class="depart_map">{{arr_loc_greeting}}</text>
+        <text bindtap="bindchooselocTaparr">{{arr_loc_name}}</text>
+      </view>
+    </view>
+    <view class="weui-cell">
+      <view class="weui-cell__hd">
+        <label class="weui-label">添加图片:</label>
+      </view>
+      <view class="weui-cell__hd contentright">
+        <text bindtap="bindchoosepicselect" class="depart_map">添加</text>
+      </view>
+    </view>
+    <view class="weui-cell">
+     <image>{{tempic}}</image>
+    </view>
+
+
   </view>
+   
   <view class="usermotto">
-    <text class="user-motto weui-btn weui-btn_primary">{{motto}}</text>
+    <text bindtap="bindchooselocTap" class="user-motto weui-btn weui-btn_primary">{{dep_lati}}</text>
   </view>
 </view>

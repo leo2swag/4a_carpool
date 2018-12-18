@@ -1,6 +1,10 @@
-<!--logs.wxml-->
-<view class="container log-list">
-  <block wx:for="{{logs}}" wx:for-item="log">
-    <text class="log-item">{{index + 1}}. {{log}}</text>
-  </block>
-</view>
+ <block wx:for="{{itemList}}" wx:key="{{item.id}}">
+      <!-- 圆心坐标 <text style='position:absolute;top:{{item.y}}px;left:{{item.x}}px;width:2px;height:2px;background-color:yellow;z-index:500'></text> -->
+      <view class='touchWrap' style='transform: scale({{item.scale}});top:{{item.top}}px;left:{{item.left}}px; '>
+        <view class='imgWrap {{item.active? "touchActive":""}}' style="transform: rotate({{item.angle}}deg);">
+          <image src='{{item.image}}' data-id='{{item.id}}' style='width:{{item.width}}px;height:{{item.height}}px;' bindtouchstart='WraptouchStart' bindload='loadImg' hidden='{{!item.isload}} bindtouchmove='WraptouchMove' bindtouchend='WraptouchEnd'></image>
+          <image class='x' src='../../images/x.png' style='transform: scale({{item.oScale}});transform-origin:center;' data-id='{{item.id}}' bindtap='deleteItem'></image>
+          <image class='o' src='../../images/o.png' style='transform: scale({{item.oScale}});transform-origin:center;' data-id='{{item.id}}' bindtouchstart='touchStart' bindtouchmove='touchMove' bindtouchend='touchEnd'></image>
+        </view>
+      </view>
+    </block>

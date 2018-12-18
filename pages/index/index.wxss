@@ -11,6 +11,25 @@
   margin-right: auto;
 }
 
-.border {
+.greyfont {
+  color:darkgray;
+}
 
+.blackfont {
+  color: black;
+}
+
+.contentright {
+  text-align: right;
+  margin: 0px 1px 0px auto;
+}
+
+.depart_map {
+  font-size: 15px;
+  color:rgb(126, 147, 173);
+  text-decoration: underline; 
+}
+
+.left_image {
+  float: left
 }
